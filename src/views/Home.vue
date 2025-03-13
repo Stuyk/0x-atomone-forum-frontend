@@ -18,6 +18,7 @@ function goTo(hash: string) {
 
 <template>
     <div class="flex flex-col p-6 gap-3 box-border" v-if="content">
+        <p class="text-center text-red-300">Keep in mind that replies, and threads that are created may take some time to populate. It currently runs off GitHub actions.</p>
         <div class="text-2xl font-bold">Threads</div>
         <div
             class="flex flex-col rounded-md hover:opacity-50 cursor-pointer overflow-hidden text-wrap box-border"
