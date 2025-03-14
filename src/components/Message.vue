@@ -28,45 +28,51 @@ const isProposal = computed(() => {
 </script>
 
 <template>
-    <div class="flex flex-col bg-neutral-900 rounded-md" :id="props.message.hash" v-if="isReady">
-        <div
-            class="flex flex-row w-full gap-3 items-center bg-neutral-800 p-3 rounded-t-md border-b border-neutral-700"
-        >
-            <div class="flex flex-row gap-3 grow items-center">
-                <Avatar v-model="props.message.author" />
-                <a
-                    class="text-neutral-400 hover:text-neutral-200"
-                    :href="`https://www.mintscan.io/atomone/address/${props.message.author}`"
-                    target="_blank"
-                >
-                    {{ props.message.author }}&#x2197;</a
-                >
-            </div>
-            <div class="flex flex-row gap-3 items-center" v-if="(isAdmin || isOwner) && !isFirstPost">
-                <div
-                    class="text-sm hover:text-red-500 cursor-pointer"
-                    @click="wallet.actionRemoveMessage(props.thread, props.message.hash)"
-                >
-                    Remove Post
+    <div
+        class="flex flex-col rounded-md bg-gray-900 p-3 rounded-t-md border border-gray-700 gap-3"
+        :id="props.message.hash"
+        v-if="isReady"
+    >
+        <div class="flex flex-row gap-3 grow items-center justify-between w-full border-b border-gray-700 pb-3 ">
+            <div class="flex flex-row gap-3 items-center grow text-wrap break-all">
+                <Avatar :hash="props.message.author" :size="32" class="size-14 rounded-full border-2 border-gray-700" />
+                <div class="flex flex-col">
+                    <span class="text-gray-300 font-bold">
+                        {{
+                            props.message.author.slice(0, 5) +
+                            '...' +
+                            props.message.author.slice(props.message.author.length - 8, props.message.author.length)
+                        }}
+                    </span>
+                    <span class="text-xs text-gray-400">
+                        {{ props.message.author }}
+                    </span>
                 </div>
+            </div>
+            <div class="flex flex-col text-gray-400 text-right items-end text-sm text-wrap break-all">
+                {{ new Date(props.message.timestamp).toLocaleString() }}
             </div>
         </div>
-        <div class="flex flex-col w-full gap-3 p-3 bg-neutral-800 rounded-b-md">
-            <div class="flex flex-row h-full text-neutral-300 text-lg" v-if="!isProposal">
+        <div class="flex flex-col w-full gap-3 min-h-16 bg-gray-900 rounded-b-md">
+            <div class="flex flex-row h-full text-gray-300" v-if="!isProposal">
                 {{ forum.getMessageContent(props.thread, props.message.hash) }}
             </div>
-            <MarkdownWrapper v-else :content="forum.getMessageContent(props.thread, props.message.hash, true)"/>
-            <div class="flex flex-row">
-                <div class="text-neutral-500 text-sm text-left w-full">
-                    Last Reply {{ new Date(props.message.timestamp).toLocaleString() }}
-                </div>
-                <a
-                    class="text-neutral-600 items-end self-end text-xs hover:text-neutral-200"
+            <MarkdownWrapper v-else :content="forum.getMessageContent(props.thread, props.message.hash, true)" />
+        </div>
+        <div class="flex flex-row gap-3 items-start justify-between border-t pt-3 border-gray-700" >
+            <a
+                    class="text-gray-500 items-end self-end text-xs hover:text-gray-300"
                     target="_blank"
                     :href="`https://www.mintscan.io/atomone/tx/${props.message.hash}`"
                 >
                     {{ props.message.hash }}&#x2197;
-                </a>
+            </a>
+            <div
+            v-if="(isAdmin || isOwner) && !isFirstPost"
+                class="text-xs hover:text-red-500 cursor-pointer"
+                @click="wallet.actionRemoveMessage(props.thread, props.message.hash)"
+            >
+                Remove Post
             </div>
         </div>
     </div>

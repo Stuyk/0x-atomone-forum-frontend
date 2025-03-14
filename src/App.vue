@@ -18,7 +18,7 @@ onMounted(update);
 </script>
 
 <template>
-    <div class="bg-neutral-950 h-screen w-screen overflow-hidden text-white flex flex-col items-center">
+    <div class="bg-gray-950 h-screen w-screen overflow-hidden text-gray-200 flex flex-col items-center">
         <Navbar />
         <div class="flex flex-col w-full box-border overflow-y-auto h-[100vh - 75px] items-center" v-if="isDoneUpdating">
             <div class="flex flex-col w-full max-w-[1280px] box-border">

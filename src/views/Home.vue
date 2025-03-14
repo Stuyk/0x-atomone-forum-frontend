@@ -3,10 +3,14 @@ import { computed } from 'vue';
 import { useForum } from '../composables/useForum';
 import { useRouter } from 'vue-router';
 import ThreadCreate from '../components/ThreadCreate.vue';
-import MarkdownWrapper from '../components/MarkdownWrapper.vue';
+import Avatar from '../components/Avatar.vue';
+import IconChevronRight from '../components/icons/IconChevronRight.vue';
+import IconReplies from '../components/icons/IconReplies.vue';
+import { useWallet } from '../composables/useWallet';
 
 const router = useRouter();
 const forum = useForum();
+const wallet = useWallet();
 
 const content = computed(() => {
     return forum.content.value;
@@ -22,35 +26,60 @@ const threadsByDate = computed(() => {
     }
 
     return forum.content.value.threads.sort((a, b) => {
-        return new Date(b.updated).getTime() - new Date(a.updated).getTime()
+        return new Date(b.updated).getTime() - new Date(a.updated).getTime();
     });
 });
 </script>
 
 <template>
-    <div class="flex flex-col p-6 gap-3 box-border" v-if="content">
-        <p class="text-center text-red-300">Keep in mind that replies, and threads that are created may take some time to populate. It currently runs off GitHub actions.</p>
-        <div class="text-2xl font-bold">Threads</div>
+    <div class="flex flex-col pt-6 px-6 gap-6 box-border" v-if="content">
+        <ThreadCreate v-if="wallet.state.address" />
+        <div class="text-center text-gray-100 bg-red-900 border border-red-500 rounded p-3">
+            Keep in mind that replies, and threads that are created may take some time to populate. Server infrastructure will improve at a later date.
+        </div>
         <div
             v-if="forum.content"
             v-for="(thread, index) in threadsByDate"
-            class="flex flex-col rounded-md hover:opacity-50 cursor-pointer overflow-hidden text-wrap box-border"
+            class="flex flex-row rounded overflow-hidden text-wrap box-border p-6 bg-gray-900 gap-3 border border-gray-700"
             :key="index"
-            @click="goTo(thread.hash)"
         >
-            <div class="flex flex-row gap-1 justify-between grow w-full bg-neutral-800 p-2">
-                <div class="text-neutral-400 text-1xl font-bold">{{ forum.getThreadTitle(thread.hash) }}</div>
-                <div class="text-neutral-400 text-1xl font-bold">{{ thread.messages.length - 1 }} Replies</div>
-            </div>
-            <div class="flex flex-col h-full text-neutral-400 bg-neutral-900 w-full p-3 gap-3">
-                <div class="flex flex-row h-full text-neutral-300 text-lg" v-if="!forum.isProposalThread(thread.hash)">{{ forum.getMessageContent(thread.hash, thread.messages[0].hash) }}</div>
-                <MarkdownWrapper v-else :content="forum.getMessageContent(thread.hash, thread.messages[0].hash)" />
-                <div class="flex flex-row justify-between">
-                    <div class="text-neutral-500 text-sm text-left w-full">Last Reply {{ new Date(thread.updated).toLocaleString() }} </div>
-                    <div class="text-neutral-500 text-sm text-right w-full">{{ thread.hash }}</div>
+            <div class="flex flex-col gap-3 grow pr-6">
+                <div class="flex flex-row w-full gap-6">
+                    <Avatar
+                        :hash="thread.messages[0].author"
+                        :size="32"
+                        class="size-14 rounded-full border-2 border-gray-700"
+                    />
+                    <div class="flex flex-col gap-3 grow text-wrap break-all">
+                        <div class="text-gray-50 font-bold">{{ forum.getThreadTitle(thread.hash) }}</div>
+                        <div class="flex flex-row h-full text-gray-400">
+                            {{ forum.getMessageContent(thread.hash, thread.messages[0].hash) }}
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-row gap-3 text-gray-500 items-center pl-20 justify-between w-full text-wrap break-all"
+                >
+                    <!-- Replies -->
+                    <div class="flex flex-row gap-2 items-center select-none text-xs w-full grow">
+                        <IconReplies />
+                        <span>
+                            {{ thread.messages.length - 1 }}
+                        </span>
+                        <code class="w-full flex items-center">
+                            {{ thread.hash }}
+                        </code>
+                    </div>
+                    <!-- Timestamp / Updated -->
+                    <div class="text-sm text-right w-full select-none">
+                        Updated {{ new Date(thread.updated).toLocaleString() }}
+                    </div>
                 </div>
             </div>
+            <div class="flex h-full px-2 justify-center items-center border-l border-gray-800 cursor-pointer pl-6 hover:text-gray-400" @click="goTo(thread.hash)">
+                <IconChevronRight class="size-8" />
+            </div>
         </div>
-        <ThreadCreate />
+        
     </div>
 </template>

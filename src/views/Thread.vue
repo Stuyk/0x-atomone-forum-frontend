@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useForum } from '../composables/useForum';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { useWallet } from '../composables/useWallet';
 import Message from '../components/Message.vue';
-import Reply from '../components/Reply.vue';
+import ThreadReply from '../components/ThreadReply.vue';
 
-const router = useRouter();
 const route = useRoute();
 const forum = useForum();
 const wallet = useWallet();
@@ -30,23 +29,20 @@ const isOwner = computed(() => {
 </script>
 
 <template>
-    <div class="flex flex-col p-6 gap-3" v-if="thread">
-        <div class="text-1xl rounded-md p-3 select-none cursor-pointer hover:opacity-50" @click="router.push('/')">
-            &lt; Back to Threads
-        </div>
-        <div class="flex flex-col bg-neutral-900 gap-3 rounded-md p-3">
+    <div class="flex flex-col p-6 gap-6" v-if="thread">
+        <div class="flex flex-col gap-6 rounded-md">
             <div class="flex flex-row justify-between pb-3">
                 <div class="flex flex-col gap-2">
                     <div class="text-2xl font-bold rounded-md pt-3 select-none">{{ forum.getThreadTitle(thread.hash) }}</div>
                     <a
-                        class="text-neutral-500 text-xs hover:text-neutral-200"
+                        class="text-bg-500 text-xs hover:text-bg-200"
                         target="_blank"
                         :href="`https://www.mintscan.io/atomone/tx/${thread.hash}`"
                     >
                         {{ thread.hash }}&#x2197;
                     </a>
                 </div>
-                <div class="flex flex-row gap-3 items-center" v-if="(isAdmin || isOwner)">
+                <div class="flex flex-row gap-3 items-end" v-if="(isAdmin || isOwner)">
                     <div
                         class="text-sm hover:text-red-500 cursor-pointer"
                         @click="wallet.actionRemoveThread(thread.hash)"
@@ -63,9 +59,6 @@ const isOwner = computed(() => {
                 :isFirstPost="index === 0"
             />
         </div>
-        <Reply :thread="thread.hash" />
-        <div class="text-1xl rounded-md p-3 select-none cursor-pointer hover:opacity-50" @click="router.push('/')">
-            &lt; Back to Threads
-        </div>
+        <ThreadReply :thread="thread.hash" />
     </div>
 </template>

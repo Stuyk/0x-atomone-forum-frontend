@@ -48,9 +48,9 @@
   
     /* Border Radius */
     --radius-none: 0;
-    --radius-xs: 0.1rem; /* pxToRem(4) */
-    --radius-sm: 0.2rem; /* pxToRem(8) */
-    --radius-md: 0.25rem; /* pxToRem(12) */
+    --radius-xs: 0.15rem; /* pxToRem(4) */
+    --radius-sm: 0.25rem; /* pxToRem(8) */
+    --radius-md: 0.5rem; /* pxToRem(12) */
     --radius-lg: 1rem; /* pxToRem(16) */
     --radius-default: 1rem; /* pxToRem(16) */
     --radius-circle: 100%;
@@ -100,21 +100,21 @@
   }
 
   ::-webkit-scrollbar {
-    width: 12px; /* Width of the scrollbar */
+    width: 16px;
   }
   
   ::-webkit-scrollbar-track {
-    background: #2c2c2c; /* Dark track color */
+    background: var(--color-gray-900); 
   }
   
   ::-webkit-scrollbar-thumb {
-    background: #555; /* Darker thumb color */
+    background: var(--color-gray-800);
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: #888; /* Lighter color when hovering */
+    background: var(--color-gray-700);
   }
   
   ::-webkit-scrollbar-corner {
-    background: #2c2c2c; /* Dark corner where two scrollbars meet */
+    background: var(--color-gray-950);
   }
