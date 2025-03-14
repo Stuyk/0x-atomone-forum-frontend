@@ -98,3 +98,23 @@
     --text-1000: 4.5rem; /* pxToRem(72) */
     --line-1000: 5rem; /* pxToRem(80) */
   }
+
+  ::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #2c2c2c; /* Dark track color */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #555; /* Darker thumb color */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #888; /* Lighter color when hovering */
+  }
+  
+  ::-webkit-scrollbar-corner {
+    background: #2c2c2c; /* Dark corner where two scrollbars meet */
+  }
