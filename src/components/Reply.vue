@@ -21,6 +21,7 @@ function createReply() {
     }
 
     reply.value = '';
+    alert('Created reply, give the forum time to update.')
 }
 </script>
 

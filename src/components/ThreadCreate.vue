@@ -29,6 +29,7 @@ async function createThread() {
     content.value = '';
     title.value = '';
     isCreatingThread.value = false;
+    alert('Created thread, give the forum time to update.')
 }
 </script>
 
