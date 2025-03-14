@@ -11,7 +11,7 @@ const isCreatingThread = ref(false);
 
 const wallet = useWallet();
 
-function createThread() {
+async function createThread() {
     if (title.value.length <= 0) {
         return;
     }
@@ -20,7 +20,15 @@ function createThread() {
         return;
     }
 
-    wallet.actionCreateThread(title.value, content.value);
+    const result = await wallet.actionCreateThread(title.value, content.value);
+    if (!result) {
+        alert('Failed to create Thread');
+        return;
+    }
+
+    content.value = '';
+    title.value = '';
+    isCreatingThread.value = false;
 }
 </script>
 

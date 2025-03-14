@@ -8,6 +8,20 @@ const props = defineProps<{ thread: string }>();
 const reply = ref<string>('');
 
 const wallet = useWallet();
+
+function createReply() {
+    if (reply.value.length <= 0) {
+        return;
+    }
+
+    const result = wallet.actionReply(props.thread, reply.value);
+    if (!result) {
+        alert('Failed to create reply');
+        return;
+    }
+
+    reply.value = '';
+}
 </script>
 
 <template>
@@ -28,7 +42,7 @@ const wallet = useWallet();
             <div
                 class="text-neutral-300 bg-neutral-800 hover:text-neutral-100 hover:bg-neutral-700 rounded-md p-3 select-none cursor-pointer text-center font-bold uppercase"
                 v-if="reply.length >= 1"
-                @click="wallet.actionReply(props.thread, reply)"
+                @click="createReply"
             >
                 Reply
             </div>
