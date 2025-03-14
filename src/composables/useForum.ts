@@ -136,12 +136,26 @@ export function useForum() {
         return content.value.threads[threadIndex].title.includes('proposal:') && content.value.threads[threadIndex].messages[msgIndex].message.includes('proposal:')
     }
 
+    const isProposalThread = (threadHash: string) => {
+        if (!content.value) {
+            return false;
+        }
+
+        const threadIndex = content.value.threads.findIndex(x => x.hash === threadHash);
+        if (threadIndex <= -1) {
+            return false;
+        }
+
+        return content.value.threads[threadIndex].title.includes('proposal:')
+    }
+
     return {
         content,
         getAllProposals,
         getThreadTitle,
         getMessageContent,
         isUpdating,
+        isProposalThread,
         isProposalMessage,
         isAdmin,
         update

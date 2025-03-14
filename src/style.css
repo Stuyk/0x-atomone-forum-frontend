@@ -74,27 +74,27 @@
     --font-roboto: "Roboto", monospace;
   
     /* Font Sizes */
-    --font-0: 0;
-    --font-50: 0.5rem; /* pxToRem(8) */
+    --text-0: 0;
+    --text-50: 0.5rem; /* pxToRem(8) */
     --line-50: 0.625rem; /* pxToRem(10) */
-    --font-100: 0.8125rem; /* pxToRem(13) */
+    --text-100: 0.8125rem; /* pxToRem(13) */
     --line-100: 1rem; /* pxToRem(16) */
-    --font-200: 0.9375rem; /* pxToRem(15) */
+    --text-200: 0.9375rem; /* pxToRem(15) */
     --line-200: 1rem; /* pxToRem(16) */
-    --font-300: 1.0625rem; /* pxToRem(17) */
+    --text-300: 1.0625rem; /* pxToRem(17) */
     --line-300: 1.5rem; /* pxToRem(24) */
-    --font-400: 1.5rem; /* pxToRem(24) */
+    --text-400: 1.5rem; /* pxToRem(24) */
     --line-400: 1.75rem; /* pxToRem(28) */
-    --font-500: 1.6875rem; /* pxToRem(27) */
+    --text-500: 1.6875rem; /* pxToRem(27) */
     --line-500: 2rem; /* pxToRem(32) */
-    --font-600: 2rem; /* pxToRem(32) */
+    --text-600: 2rem; /* pxToRem(32) */
     --line-600: 2.5rem; /* pxToRem(40) */
-    --font-700: 2.5rem; /* pxToRem(40) */
+    --text-700: 2.5rem; /* pxToRem(40) */
     --line-700: 3rem; /* pxToRem(48) */
-    --font-800: 3rem; /* pxToRem(48) */
+    --text-800: 3rem; /* pxToRem(48) */
     --line-800: 3.5rem; /* pxToRem(56) */
-    --font-900: 3.5rem; /* pxToRem(56) */
+    --text-900: 3.5rem; /* pxToRem(56) */
     --line-900: 4rem; /* pxToRem(64) */
-    --font-1000: 4.5rem; /* pxToRem(72) */
+    --text-1000: 4.5rem; /* pxToRem(72) */
     --line-1000: 5rem; /* pxToRem(80) */
   }
