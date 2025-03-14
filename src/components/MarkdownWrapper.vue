@@ -91,7 +91,7 @@ const getClasses = computed(() => {
   ];
 });
 
-watch(() => props.content, (newVal, oldVal) => {
+watch(() => props.content, (_newVal, _oldVal) => {
   parseData();
 });
 

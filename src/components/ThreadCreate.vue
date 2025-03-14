@@ -62,6 +62,10 @@ function createThread() {
                 >
                     Post Thread
                 </div>
+                <div class="flex flex-col">
+                    <strong>Additional Help</strong>
+                    <div>You can put <code class="text-emerald-400">proposal:id</code> in the title, and content to pull proposal data from chain.</div>
+                </div>
             </div>
             <div v-else class="flex flex-row w-full justify-end">
                 <div class="text-neutral-500 bg-neutral-900 rounded-md p-3 select-none">Connect to Post a Thread</div>
