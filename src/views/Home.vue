@@ -16,8 +16,12 @@ function goTo(hash: string) {
 }
 
 const threadsByDate = computed(() => {
-    return forum.content.value?.threads.sort((a, b) => {
-        return (new Date(b.updated)).getMilliseconds() - (new Date(a.updated)).getMilliseconds()
+    if (!forum.content.value) {
+        return [];
+    }
+
+    return forum.content.value.threads.sort((a, b) => {
+        return (new Date(a.updated)).getMilliseconds() - (new Date(b.updated)).getMilliseconds()
     });
 });
 
@@ -42,7 +46,7 @@ onMounted(async () => {});
             <div class="flex flex-col h-full text-neutral-400 bg-neutral-900 w-full p-3 gap-3">
                 <div class="flex flex-row h-full text-neutral-300 text-lg">{{ forum.getMessageContent(thread.hash, thread.messages[0].hash) }}</div>
                 <div class="flex flex-row justify-between">
-                    <div class="text-neutral-500 text-sm text-left w-full">Last Reply {{ new Date(thread.messages[thread.messages.length - 1].timestamp).toLocaleString() }} </div>
+                    <div class="text-neutral-500 text-sm text-left w-full">Last Reply {{ new Date(thread.updated).toLocaleString() }} </div>
                     <div class="text-neutral-500 text-sm text-right w-full">{{ thread.hash }}</div>
                 </div>
             </div>
