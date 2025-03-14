@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
 import type { Message } from '../types';
-import Avatar from './Avatar.vue';
 import { useWallet } from '../composables/useWallet';
 import { useForum } from '../composables/useForum';
-import { computed } from 'vue';
+import Avatar from './Avatar.vue';
+import MarkdownWrapper from './MarkdownWrapper.vue';
 
 const props = defineProps<{ message: Message; thread: string; isFirstPost: boolean }>();
 const wallet = useWallet();
@@ -19,6 +20,10 @@ const isOwner = computed(() => {
 
 const isReady = computed(() => {
     return forum.isUpdating.value == false;
+});
+
+const isProposal = computed(() => {
+    return forum.isProposalMessage(props.thread, props.message.hash);
 });
 </script>
 
@@ -47,9 +52,10 @@ const isReady = computed(() => {
             </div>
         </div>
         <div class="flex flex-col w-full gap-3 p-3 bg-neutral-800 rounded-b-md">
-            <div class="flex flex-row h-full text-neutral-300 text-lg">
-                {{ props.message.message }}
+            <div class="flex flex-row h-full text-neutral-300 text-lg" v-if="!isProposal">
+                {{ forum.getMessageContent(props.thread, props.message.hash) }}
             </div>
+            <MarkdownWrapper v-else :content="forum.getMessageContent(props.thread, props.message.hash, true)"/>
             <div class="flex flex-row">
                 <div class="text-neutral-500 text-sm text-left w-full">
                     Last Reply {{ new Date(props.message.timestamp).toLocaleString() }}

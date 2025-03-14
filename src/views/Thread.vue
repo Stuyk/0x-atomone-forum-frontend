@@ -36,8 +36,8 @@ const isOwner = computed(() => {
         </div>
         <div class="flex flex-col bg-neutral-900 gap-3 rounded-md p-3">
             <div class="flex flex-row justify-between pb-3">
-                <div class="flex flex-col">
-                    <div class="text-2xl font-bold rounded-md pt-3 select-none">{{ thread.title }}</div>
+                <div class="flex flex-col gap-2">
+                    <div class="text-2xl font-bold rounded-md pt-3 select-none">{{ forum.getThreadTitle(thread.hash) }}</div>
                     <a
                         class="text-neutral-500 text-xs hover:text-neutral-200"
                         target="_blank"

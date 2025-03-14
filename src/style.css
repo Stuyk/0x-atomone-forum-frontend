@@ -1,1 +1,100 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+    /* Z-Index */
+    --z-min: -1;
+    --z-1: 1;
+    --z-2: 2;
+    --z-100: 100;
+    --z-max: 9999;
+  
+    /* Screens */
+    --screen-sm: 32.5rem; /* pxToRem(520) */
+    --screen-md: 48.75rem; /* pxToRem(780) */
+    --screen-lg: 72.5rem; /* pxToRem(1160) */
+    --screen-xl: 90rem; /* pxToRem(1440) */
+  
+    /* Container Padding */
+    --container-padding-default: 1rem; /* pxToRem(16) */
+    --container-padding-md: 1.5rem; /* pxToRem(24) */
+    --container-padding-lg: 2.5rem; /* pxToRem(40) */
+    --container-padding-xl: 4.75rem; /* pxToRem(76) */
+  
+    /* Colors */
+    --color-light: #ffffff;
+    --color-dark: #0c0c0c;
+    --color-night: #000000;
+    --color-darkblur: #0009;
+    --color-red-200: #f9dbdb;
+    --color-red-400: #900909;
+    --color-grey-50: #9f9f9f;
+    --color-grey-100: #686868;
+    --color-grey-200: #272727;
+    --color-grey-300: #181818;
+    --color-grey-400: #151515;
+    --color-grey-500: #0d0d0d;
+    --color-button: rgba(255, 255, 255, 0.05);
+    --color-badge-info: rgba(107, 239, 255, 0.10);
+    --color-badge-plain: rgba(255, 255, 255, 0.10);
+    --color-badge-fail: rgba(255, 139, 139, 0.10);
+    --color-accent-100: #6befff;
+    --color-accent-200: #f4afff;
+    --color-neg-200: #ff8b8b;
+    --color-gradient-100: #d1e9cc;
+    --color-gradient-900: #03c5dc;
+    --color-transparent: transparent;
+    --color-current: currentColor;
+  
+    /* Border Radius */
+    --radius-none: 0;
+    --radius-xs: 0.1rem; /* pxToRem(4) */
+    --radius-sm: 0.2rem; /* pxToRem(8) */
+    --radius-md: 0.25rem; /* pxToRem(12) */
+    --radius-lg: 1rem; /* pxToRem(16) */
+    --radius-default: 1rem; /* pxToRem(16) */
+    --radius-circle: 100%;
+    --radius-full: 9999px;
+  
+    /* Background Image */
+    --bg-none: none;
+    --bg-gradient: linear-gradient(88deg, var(--color-gradient-100) 0%, var(--color-gradient-900) 100%);
+    --bg-link: linear-gradient(
+      88deg,
+      var(--color-gradient-100) 0%,
+      var(--color-gradient-900) 33.333%,
+      var(--color-gradient-100) 66.66%,
+      var(--color-gradient-900) 100%
+    );
+  
+    /* Font Families */
+    --font-inter-var: "Inter var", sans-serif;
+    --font-inter-normal: "Inter", sans-serif;
+    --font-termina: "Termina", sans-serif;
+    --font-roboto: "Roboto", monospace;
+  
+    /* Font Sizes */
+    --font-0: 0;
+    --font-50: 0.5rem; /* pxToRem(8) */
+    --line-50: 0.625rem; /* pxToRem(10) */
+    --font-100: 0.8125rem; /* pxToRem(13) */
+    --line-100: 1rem; /* pxToRem(16) */
+    --font-200: 0.9375rem; /* pxToRem(15) */
+    --line-200: 1rem; /* pxToRem(16) */
+    --font-300: 1.0625rem; /* pxToRem(17) */
+    --line-300: 1.5rem; /* pxToRem(24) */
+    --font-400: 1.5rem; /* pxToRem(24) */
+    --line-400: 1.75rem; /* pxToRem(28) */
+    --font-500: 1.6875rem; /* pxToRem(27) */
+    --line-500: 2rem; /* pxToRem(32) */
+    --font-600: 2rem; /* pxToRem(32) */
+    --line-600: 2.5rem; /* pxToRem(40) */
+    --font-700: 2.5rem; /* pxToRem(40) */
+    --line-700: 3rem; /* pxToRem(48) */
+    --font-800: 3rem; /* pxToRem(48) */
+    --line-800: 3.5rem; /* pxToRem(56) */
+    --font-900: 3.5rem; /* pxToRem(56) */
+    --line-900: 4rem; /* pxToRem(64) */
+    --font-1000: 4.5rem; /* pxToRem(72) */
+    --line-1000: 5rem; /* pxToRem(80) */
+  }

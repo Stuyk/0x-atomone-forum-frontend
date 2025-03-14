@@ -43,7 +43,7 @@ async function invokeAction(formattedMemo: string) {
             formattedMemo
         );
 
-        const gasLimit = simulate && simulate > 0 ? '' + Math.ceil(simulate * 1.3) : '500000';
+        const gasLimit = simulate && simulate > 0 ? '' + Math.ceil(simulate * 2.0) : '500000';
         const result = await client.sendTokens(
             state.address, // From
             forumInfo.owner, // To
