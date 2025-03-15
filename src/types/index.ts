@@ -17,6 +17,7 @@ export interface Message {
     hash: string;
     message: string;
     timestamp: string;
+    upvotes: string[];
 }
 
 export interface Proposal {

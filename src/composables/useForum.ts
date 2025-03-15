@@ -72,12 +72,12 @@ export function useForum() {
         return content.value.threads[idx].title;
     }
 
-    const getMessageContent = (forumHash: string, msgHash: string, isFull = false) => {
+    const getMessageContent = (threadHash: string, msgHash: string, isFull = false) => {
         if (!content.value) {
             return 'No Content Found';
         }
 
-        const threadIndex = content.value.threads.findIndex(x => x.hash === forumHash);
+        const threadIndex = content.value.threads.findIndex(x => x.hash === threadHash);
         if (threadIndex <= -1) {
             return 'Thread Not Found';
         }
@@ -104,6 +104,28 @@ export function useForum() {
 
         return msg;
     }
+
+    const getMessageUpvotes = (threadHash: string, msgHash: string) => {
+        if (!content.value) {
+            return 0
+        }
+
+        const threadIndex = content.value.threads.findIndex(x => x.hash === threadHash);
+        if (threadIndex <= -1) {
+            return 0
+        }
+
+        const msgIndex = content.value.threads[threadIndex].messages.findIndex(x => x.hash == msgHash);
+        if (msgIndex <= -1) {
+            return 'Message Not Found';
+        }
+
+        if (content.value.threads[threadIndex].messages[msgIndex].upvotes) {
+            return content.value.threads[threadIndex].messages[msgIndex].upvotes.length;
+        }
+
+        return 0;
+    };
 
     const getAllProposals = async () => {
         isUpdating.value = true;
@@ -159,6 +181,7 @@ export function useForum() {
         getAllProposals,
         getThreadTitle,
         getMessageContent,
+        getMessageUpvotes,
         isUpdating,
         isProposalThread,
         isProposalMessage,

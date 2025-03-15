@@ -133,8 +133,8 @@ export function useWallet() {
             throw new Error('Content must be at least 1 length');
         }
 
-        if (threadHash.length <= 0) {
-            throw new Error('Thread hash must be at least 1 length');
+        if (threadHash.length !== 64) {
+            throw new Error('Thread hash must be 64 length');
         }
 
         if (!state.address) {
@@ -152,12 +152,12 @@ export function useWallet() {
 
     // Action 2
     const actionRemoveMessage = async (threadHash: string, msgHash: string) => {
-        if (threadHash.length <= 0) {
-            throw new Error('Thread hash must be at least 1 length');
+        if (threadHash.length !== 64) {
+            throw new Error('Thread hash must be 64 length');
         }
 
-        if (msgHash.length <= 0) {
-            throw new Error('MsgHash must be at least 1 length');
+        if (msgHash.length !== 64) {
+            throw new Error('MsgHash must be 64 length');
         }
 
         if (!state.address) {
@@ -175,8 +175,8 @@ export function useWallet() {
 
     // Action 3
     const actionRemoveThread = async (threadHash: string) => {
-        if (threadHash.length <= 0) {
-            throw new Error('Thread hash must be at least 1 length');
+        if (threadHash.length !== 64) {
+            throw new Error('Thread hash must be 64 length');
         }
 
         if (!state.address) {
@@ -192,13 +192,37 @@ export function useWallet() {
         return await invokeAction(formattedMemo);
     };
 
+    // Action 6
+    const actionUpvoteMessage = async (threadHash: string, messageHash: string) => {
+        if (threadHash.length !== 64) {
+            throw new Error('Thread hash must be 64 length');
+        }
+
+        if (messageHash.length !== 64) {
+            throw new Error('Message hash must be 64 length');
+        }
+
+        if (!state.address) {
+            throw new Error('No Wallet Connected');
+        }
+
+        if (!state.signer) {
+            throw new Error('No Signer Available');
+        }
+
+        // Reply Action
+        const formattedMemo = `0xForum,6,${threadHash},${messageHash}`;
+        return await invokeAction(formattedMemo);
+    };
+
     window.addEventListener('keplr_keystorechange', refreshAddress);
 
     return {
-        actionCreateThread, // 0
-        actionReply, // 1
-        actionRemoveMessage, // 2
-        actionRemoveThread, // 3
+        actionCreateThread,
+        actionReply,
+        actionRemoveMessage, 
+        actionRemoveThread,
+        actionUpvoteMessage,
         connect,
         disconnect,
         state,
