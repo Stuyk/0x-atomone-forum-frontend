@@ -81,10 +81,10 @@ async function replyThread() {
             </div>
         </div>
     </div>
-    <div class="">
+    <div class="flex flex-row w-full justify-end">
         <div
             v-if="wallet && wallet.state.address"
-            class="text-gray-300 bg-gray-800 hover:text-gray-100 hover:bg-gray-700 rounded p-3 select-none cursor-pointer text-center border border-gray-700"
+            class="text-gray-300 bg-gray-800 hover:text-gray-100 hover:bg-gray-700 rounded p-3 select-none cursor-pointer text-center border border-gray-700 w-32"
             @click="isReplying = true"
         >
             Reply

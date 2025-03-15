@@ -8,6 +8,7 @@ import { useForum } from '../composables/useForum';
 import Avatar from '../components/Avatar.vue';
 import IconReplies from '../components/icons/IconReplies.vue';
 import IconClock from './icons/IconClock.vue';
+import IconHeart from './icons/IconHeart.vue';
 
 const router = useRouter();
 const forum = useForum();
@@ -38,20 +39,26 @@ const lastReply = computed(() => {
         class="flex flex-row rounded overflow-hidden text-wrap box-border p-3 bg-gray-900 gap-3 border border-gray-700 items-center w-full hover:border-gray-600 hover:bg-gray-800 cursor-pointer"
         @click="goTo(props.thread.hash)"
     >
-        <Avatar :hash="props.thread.messages[0].author" class="size-10 rounded-full border-2 border-gray-700" />
+        <Avatar :hash="props.thread.messages[0].author" class="size-18 rounded-md border-2 border-gray-700" />
         <div class="flex flex-col w-full grow">
             <div class="text-gray-50 font-bold text-wrap break-all">{{ forum.getThreadTitle(props.thread.hash) }}</div>
             <code class="w-full flex items-center justify-start text-xs text-gray-500 text-wrap break-all">
                 {{ props.thread.messages[0].author }}
             </code>
         </div>
-        <div class="flex flex-col gap-2 items-center select-none text-xs py-3 px-6 border rounded border-gray-700">
+        <div class="hidden md:flex flex-col gap-2 items-center select-none text-xs py-3 px-6 border rounded border-gray-700 text-gray-400">
+            <IconHeart class="size-5" />
+            <span>
+                {{ forum.getMessageUpvotes(props.thread.hash, props.thread.messages[0].hash) }}
+            </span>
+        </div>
+        <div class="hidden sm:flex flex-col gap-2 items-center select-none text-xs py-3 px-6 border rounded border-gray-700 text-gray-400">
             <IconClock class="size-5" />
             <span>
                 {{ lastReply }}
             </span>
         </div>
-        <div class="flex flex-col gap-2 items-center select-none text-xs py-3 px-6 border rounded border-gray-700">
+        <div class="flex flex-col gap-2 items-center select-none text-xs py-3 px-6 border rounded border-gray-700 text-gray-400">
             <IconReplies  class="size-5" />
             <span>
                 {{ props.thread.messages.length - 1 }}

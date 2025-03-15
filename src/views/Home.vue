@@ -29,6 +29,9 @@ const threadsByDate = computed(() => {
         <div class="text-center text-gray-100 bg-red-900 border border-red-500 rounded p-3">
             Keep in mind that replies, and threads that are created may take some time to populate. Server infrastructure will improve at a later date.
         </div>
+        <div class="text-center text-gray-100 bg-gray-600 border border-gray-500 rounded p-3">
+            Never input your private keys anywhere on this website. We will never ask for your keys.
+        </div>
         <ThreadCreate v-if="wallet.state.address" />
         <Thread
             v-if="forum.content"

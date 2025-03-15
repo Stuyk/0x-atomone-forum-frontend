@@ -101,7 +101,7 @@ async function createThread() {
     </div>
 
     <!-- Create Thread Button -->
-    <div class="">
+    <div class="flex flex-row w-full justify-end">
         <div
             v-if="wallet && wallet.state.address"
             class="text-gray-300 bg-gray-900 hover:text-gray-100 hover:bg-gray-800 rounded p-3 select-none cursor-pointer text-center border border-gray-700"
