@@ -84,7 +84,7 @@ const threadsByDate = computed(() => {
                     </div>
                 </div>
             </div>
-            <div class="flex h-full  justify-center items-center border-t pt-4 border-gray-800 cursor-pointer hover:text-gray-400 md:border-l md:pl-6 md:border-t-0" @click="goTo(thread.hash)">
+            <div class="flex h-full  justify-center items-center border-t pt-4 border-gray-800 cursor-pointer hover:text-gray-400 md:border-l md:pt-0 md:pl-6 md:border-t-0" @click="goTo(thread.hash)">
                 <IconChevronRight class="size-8" />
             </div>
         </div>
