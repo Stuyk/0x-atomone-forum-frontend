@@ -50,29 +50,37 @@ const threadsByDate = computed(() => {
                         :size="32"
                         class="size-14 rounded-full border-2 border-gray-700"
                     />
-                    <div class="flex flex-col gap-3 grow text-wrap break-all w-full">
+                    <div class="flex flex-col gap-2 grow text-wrap break-all w-full text-center md:text-left">
                         <div class="text-gray-50 font-bold">{{ forum.getThreadTitle(thread.hash) }}</div>
-                        <div class="flex flex-row h-full text-gray-400">
+                        <code class="w-full flex items-center justify-center md:justify-start text-xs text-gray-500">
+                            BY: {{ thread.messages[0].author }}
+                        </code>
+                        <div class="flex flex-row h-full text-gray-400 justify-center md:justify-start">
                             {{ forum.getMessageContent(thread.hash, thread.messages[0].hash) }}
                         </div>
                     </div>
                 </div>
-                <div
-                    class="flex flex-row gap-3 text-gray-500 items-center justify-between w-full text-wrap break-all md:pl-20 flex-wrap md:flex-nowrap"
-                >
-                    <!-- Replies -->
-                    <div class="flex flex-row gap-2 items-center select-none text-xs w-full grow flex-wrap justify-center text-center md:flex-nowrap md:justify-start md:text-left">
-                        <IconReplies />
-                        <span>
-                            {{ thread.messages.length - 1 }}
-                        </span>
-                        <code class="w-full flex items-center justify-center md:justify-start">
-                            {{ thread.hash }}
-                        </code>
+                <div class="flex flex-col gap-3">
+
+                    <div
+                        class="flex flex-row gap-3 text-gray-600 items-center justify-between w-full text-wrap break-all md:pl-20 flex-wrap md:flex-nowrap"
+                    >
+                        <!-- Replies -->
+                        <div class="flex flex-row gap-2 items-center select-none text-xs w-full grow flex-wrap justify-center text-center md:flex-nowrap md:justify-start md:text-left">
+                            <IconReplies />
+                            <span>
+                                {{ thread.messages.length - 1 }}
+                            </span>
+                        </div>
+                        <!-- Timestamp / Updated -->
+                        <div class="text-sm text-center w-full select-none md:text-right">
+                            Updated {{ new Date(thread.updated).toLocaleString() }}
+                        </div>
                     </div>
-                    <!-- Timestamp / Updated -->
-                    <div class="text-sm text-center w-full select-none md:text-right">
-                        Updated {{ new Date(thread.updated).toLocaleString() }}
+                    <div class="flex flex-row w-full text-gray-600 text-xs text-wrap break-all md:pl-20 flex-wrap md:flex-nowrap">
+                        <code class="w-full flex items-center justify-center md:justify-end text-center">
+                            ID: {{ thread.hash }}
+                        </code>
                     </div>
                 </div>
             </div>

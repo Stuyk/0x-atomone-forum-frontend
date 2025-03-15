@@ -89,8 +89,5 @@ async function replyThread() {
         >
             Reply
         </div>
-        <div v-else>
-            <div class="text-gray-500 bg-gray-900 rounded p-3 select-none">Connect to Post a Thread</div>
-        </div>
     </div>
 </template>
