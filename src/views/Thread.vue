@@ -35,7 +35,7 @@ const isOwner = computed(() => {
                 <div class="flex flex-col gap-2">
                     <div class="text-2xl font-bold rounded-md pt-3 select-none">{{ forum.getThreadTitle(thread.hash) }}</div>
                     <a
-                        class="text-bg-500 text-xs hover:text-bg-200"
+                        class="text-bg-500 text-xs hover:text-bg-200 text-wrap break-all"
                         target="_blank"
                         :href="`https://www.mintscan.io/atomone/tx/${thread.hash}`"
                     >

@@ -40,17 +40,17 @@ const threadsByDate = computed(() => {
         <div
             v-if="forum.content"
             v-for="(thread, index) in threadsByDate"
-            class="flex flex-row rounded overflow-hidden text-wrap box-border p-6 bg-gray-900 gap-3 border border-gray-700"
+            class="flex flex-col rounded overflow-hidden text-wrap box-border p-6 bg-gray-900 gap-3 border border-gray-700 md:flex-row"
             :key="index"
         >
             <div class="flex flex-col gap-3 grow pr-6">
-                <div class="flex flex-row w-full gap-6">
+                <div class="flex flex-row w-full gap-6 flex-wrap justify-center md:flex-nowrap md:justify-start">
                     <Avatar
                         :hash="thread.messages[0].author"
                         :size="32"
                         class="size-14 rounded-full border-2 border-gray-700"
                     />
-                    <div class="flex flex-col gap-3 grow text-wrap break-all">
+                    <div class="flex flex-col gap-3 grow text-wrap break-all w-full">
                         <div class="text-gray-50 font-bold">{{ forum.getThreadTitle(thread.hash) }}</div>
                         <div class="flex flex-row h-full text-gray-400">
                             {{ forum.getMessageContent(thread.hash, thread.messages[0].hash) }}
@@ -58,25 +58,25 @@ const threadsByDate = computed(() => {
                     </div>
                 </div>
                 <div
-                    class="flex flex-row gap-3 text-gray-500 items-center pl-20 justify-between w-full text-wrap break-all"
+                    class="flex flex-row gap-3 text-gray-500 items-center justify-between w-full text-wrap break-all md:pl-20 flex-wrap md:flex-nowrap"
                 >
                     <!-- Replies -->
-                    <div class="flex flex-row gap-2 items-center select-none text-xs w-full grow">
+                    <div class="flex flex-row gap-2 items-center select-none text-xs w-full grow flex-wrap justify-center text-center md:flex-nowrap md:justify-start md:text-left">
                         <IconReplies />
                         <span>
                             {{ thread.messages.length - 1 }}
                         </span>
-                        <code class="w-full flex items-center">
+                        <code class="w-full flex items-center justify-center md:justify-start">
                             {{ thread.hash }}
                         </code>
                     </div>
                     <!-- Timestamp / Updated -->
-                    <div class="text-sm text-right w-full select-none">
+                    <div class="text-sm text-center w-full select-none md:text-right">
                         Updated {{ new Date(thread.updated).toLocaleString() }}
                     </div>
                 </div>
             </div>
-            <div class="flex h-full px-2 justify-center items-center border-l border-gray-800 cursor-pointer pl-6 hover:text-gray-400" @click="goTo(thread.hash)">
+            <div class="flex h-full  justify-center items-center border-t pt-4 border-gray-800 cursor-pointer hover:text-gray-400 md:border-l md:pl-6 md:border-t-0" @click="goTo(thread.hash)">
                 <IconChevronRight class="size-8" />
             </div>
         </div>

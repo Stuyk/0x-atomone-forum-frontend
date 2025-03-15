@@ -61,7 +61,7 @@ const isProposal = computed(() => {
         </div>
         <div class="flex flex-row gap-3 items-start justify-between border-t pt-3 border-gray-700" >
             <a
-                    class="text-gray-500 items-end self-end text-xs hover:text-gray-300"
+                    class="text-gray-500 items-end self-end text-xs hover:text-gray-300 text-wrap break-all"
                     target="_blank"
                     :href="`https://www.mintscan.io/atomone/tx/${props.message.hash}`"
                 >
