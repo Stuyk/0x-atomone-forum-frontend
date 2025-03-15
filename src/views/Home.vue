@@ -65,20 +65,20 @@ const threadsByDate = computed(() => {
                     <div
                         class="flex flex-row gap-3 text-gray-600 items-center justify-between w-full text-wrap break-all md:pl-20 flex-wrap md:flex-nowrap"
                     >
-                        <!-- Replies -->
-                        <div class="flex flex-row gap-2 items-center select-none text-xs w-full grow flex-wrap justify-center text-center md:flex-nowrap md:justify-start md:text-left">
+                        <!-- Timestamp / Updated -->
+                        <div class="text-xs text-center w-full select-none md:text-right">
+                            Updated {{ new Date(thread.updated).toLocaleString() }}
+                        </div>
+                    </div>
+                    <div class="flex flex-row w-full gap-3 justify-between text-gray-600 text-xs text-wrap break-all md:pl-20 flex-wrap md:flex-nowrap">
+                         <!-- Replies -->
+                         <div class="flex flex-row gap-2 items-center select-none text-xs w-full grow flex-wrap justify-center text-center md:flex-nowrap md:justify-start md:text-left">
                             <IconReplies />
                             <span>
                                 {{ thread.messages.length - 1 }}
                             </span>
                         </div>
-                        <!-- Timestamp / Updated -->
-                        <div class="text-sm text-center w-full select-none md:text-right">
-                            Updated {{ new Date(thread.updated).toLocaleString() }}
-                        </div>
-                    </div>
-                    <div class="flex flex-row w-full text-gray-600 text-xs text-wrap break-all md:pl-20 flex-wrap md:flex-nowrap">
-                        <code class="w-full flex items-center justify-center md:justify-end text-center">
+                        <code class="w-full flex items-center justify-center md:justify-end text-center md:text-right">
                             ID: {{ thread.hash }}
                         </code>
                     </div>

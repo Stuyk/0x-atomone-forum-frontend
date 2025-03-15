@@ -29,27 +29,27 @@ const isProposal = computed(() => {
 
 <template>
     <div
-        class="flex flex-col rounded-md bg-gray-900 p-3 rounded-t-md border border-gray-700 gap-3"
+        class="flex flex-col rounded-md bg-gray-900 p-6 rounded-t-md border border-gray-700 gap-3"
         :id="props.message.hash"
         v-if="isReady"
     >
-        <div class="flex flex-row gap-3 grow items-center justify-between w-full border-b border-gray-700 pb-3 ">
-            <div class="flex flex-row gap-3 items-center grow text-wrap break-all">
+        <div class="flex flex-row gap-3 grow items-center justify-center w-full border-b border-gray-700 pb-3 flex-wrap md:flex-nowrap md:justify-between">
+            <div class="flex flex-row gap-3 w-full items-center grow text-wrap break-all justify-center flex-wrap md:flex-nowrap md:justify-start">
                 <Avatar :hash="props.message.author" :size="32" class="size-14 rounded-full border-2 border-gray-700" />
-                <div class="flex flex-col">
-                    <span class="text-gray-300 font-bold">
+                <div class="flex flex-col w-full">
+                    <span class="text-gray-300 font-bold text-center w-full md:text-left">
                         {{
                             props.message.author.slice(0, 5) +
                             '...' +
                             props.message.author.slice(props.message.author.length - 8, props.message.author.length)
                         }}
                     </span>
-                    <span class="text-xs text-gray-400">
+                    <span class="text-xs text-gray-400 text-center md:text-left grow w-full">
                         {{ props.message.author }}
                     </span>
                 </div>
             </div>
-            <div class="flex flex-col text-gray-400 text-right items-end text-sm text-wrap break-all">
+            <div class="flex flex-col w-full justify-center text-gray-500 items-center text-xs text-wrap break-all text-center md:text-right md:items-end">
                 {{ new Date(props.message.timestamp).toLocaleString() }}
             </div>
         </div>
