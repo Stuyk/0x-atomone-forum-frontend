@@ -3,7 +3,7 @@ import type { Forum } from '../types';
 import forumInfo from '../forum-config.json';
 import { useProposals } from './useProposals';
 
-const ENDPOINT_URL = forumInfo.dataApi;
+const ENDPOINT_URLS = forumInfo.dataApi;
 const { proposals, fetchProposal } = useProposals();
 
 const content = ref<Forum | null>()
@@ -13,16 +13,21 @@ export function useForum() {
     const update = async () => {
         isUpdating.value = true;
 
-        try {
-            const result = await fetch(ENDPOINT_URL);
-            if (!result.ok) {
-                console.error(new Error(`Failed to fetch from ${ENDPOINT_URL}`))
+        for(let api of ENDPOINT_URLS) {
+            try {
+                const result = await fetch(api);
+                if (!result.ok) {
+                    console.error(new Error(`Failed to fetch from ${api}`))
+                    continue;
+                }
+    
+                content.value = await result.json();
+                isUpdating.value = false;
+                break;
+            } catch(err) {
+                console.error(new Error(`Failed to fetch from ${api}`))
+                console.error(err);
             }
-
-            content.value = await result.json();
-            isUpdating.value = false;
-        } catch(err) {
-            console.error(err);
         }
 
         isUpdating.value = false;
