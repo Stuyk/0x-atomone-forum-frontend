@@ -25,7 +25,7 @@ const isSelectingWallet = ref(false);
                 <span class="text-xs text-gray-400">A Decentralized Forum for AtomOne</span>
             </div>
             <div
-                class="flex flex-row gap-3 items-center justify-center cursor-pointer border p-3 rounded border-gray-700 bg-gray-800 hover:bg-gray-700 hover:text-gray-100 text-center"
+                class="flex flex-row gap-3 text-sm items-center justify-center cursor-pointer border p-3 rounded border-gray-700 bg-gray-800 hover:bg-gray-700 hover:text-gray-100 text-center"
                 v-if="!wallet.state.address"
                 @click="isSelectingWallet = true"
             >
@@ -35,7 +35,7 @@ const isSelectingWallet = ref(false);
                 
                 <div
                     @click="wallet.disconnect"
-                    class="flex flex-row gap-3 items-center justify-center cursor-pointer border p-3 rounded border-gray-700 bg-gray-800 hover:bg-gray-700 hover:text-gray-100 text-center"
+                    class="flex flex-row gap-3 text-sm items-center justify-center cursor-pointer border p-3 rounded border-gray-700 bg-gray-800 hover:bg-gray-700 hover:text-gray-100 text-center"
                 >
                     Disconnect
                 </div>
