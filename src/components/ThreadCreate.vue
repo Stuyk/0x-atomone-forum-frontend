@@ -82,7 +82,7 @@ async function createThread() {
                 </div>
             </div>
             <!-- Post Thread & Close Buttons -->
-            <div class="flex justify-end gap-2 border-t pt-3 border-gray-700">
+            <div class="flex justify-end gap-2 border-t pt-3 border-gray-700 text-sm">
                 <button
                     class="text-gray-300 bg-gray-800 hover:text-gray-100 hover:bg-gray-700 rounded px-4 py-2 cursor-pointer border border-gray-700 w-32 text-center"
                     @click="isCreatingThread = false"
@@ -111,7 +111,7 @@ async function createThread() {
     <div class="flex flex-row w-full justify-end">
         <div
             v-if="wallet && wallet.state.address"
-            class="text-gray-300 bg-gray-900 hover:text-gray-100 hover:bg-gray-800 rounded p-3 select-none cursor-pointer text-center border border-gray-700"
+            class="text-gray-300 text-sm bg-gray-900 hover:text-gray-100 hover:bg-gray-800 rounded p-3 select-none cursor-pointer text-center border border-gray-700"
             @click="isCreatingThread = true"
         >
             Create Thread

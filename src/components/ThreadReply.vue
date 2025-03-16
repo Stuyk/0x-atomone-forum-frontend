@@ -31,11 +31,8 @@ async function replyThread() {
 
 <template>
     <!-- Modal Overlay -->
-    <div
-        v-if="isReplying"
-        class="fixed inset-0 flex justify-center bg-[#000000aa] backdrop-blur-xs z-99 px-6 py-6"
-    >
-    <div class="flex flex-col gap-3 bg-gray-900 p-3 rounded border border-gray-700 w-full h-fit max-w-[640px]">
+    <div v-if="isReplying" class="fixed inset-0 flex justify-center bg-[#000000aa] backdrop-blur-xs z-99 px-6 py-6">
+        <div class="flex flex-col gap-3 bg-gray-900 p-3 rounded border border-gray-700 w-full h-fit max-w-[640px]">
             <div class="flex flex-row justify-between border-b items-center pb-3 mb-1 border-gray-700">
                 <div class="text-xl font-bold">Reply</div>
                 <IconClose
@@ -45,7 +42,10 @@ async function replyThread() {
             </div>
             <!-- Helpful Info -->
             <div class="flex flex-col gap-3 text-sm text-left">
-                <span>Reminder, everything you post on-chain will be on-chain forever. However, we reserve the right to hide posts.</span>
+                <span
+                    >Reminder, everything you post on-chain will be on-chain forever. However, we reserve the right to
+                    hide posts.</span
+                >
             </div>
             <!-- Content -->
             <div class="flex rounded bg-gray-950 relative">
@@ -61,7 +61,7 @@ async function replyThread() {
                 </div>
             </div>
             <!-- Post Thread & Close Buttons -->
-            <div class="flex justify-end gap-2 border-t pt-3 border-gray-700">
+            <div class="flex justify-end gap-2 border-t pt-3 border-gray-700 text-sm">
                 <button
                     class="text-gray-300 bg-gray-800 hover:text-gray-100 hover:bg-gray-700 rounded px-4 py-2 cursor-pointer border border-gray-700 w-32 text-center"
                     @click="isReplying = false"
