@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useWallet } from '../composables/useWallet';
+import IconClose from './icons/IconClose.vue';
 
 const MAX_TITLE_LENGTH = 24;
 const MAX_CONTENT_LENGTH = 180 - MAX_TITLE_LENGTH;
@@ -35,21 +36,30 @@ async function createThread() {
         v-if="isCreatingThread"
         class="fixed inset-0 flex justify-center bg-[#000000aa] backdrop-blur-xs z-99 px-6 py-6"
     >
-        <div class="flex flex-col gap-3 bg-gray-900 p-6 rounded border border-gray-700 w-full h-fit max-w-[1280px]">
-            <div class="text-2xl">Create Thread</div>
+        <div class="flex flex-col gap-3 bg-gray-900 p-3 rounded border border-gray-700 w-full h-fit max-w-[640px]">
+            <div class="flex flex-row justify-between border-b items-center pb-3 mb-1 border-gray-700">
+                <div class="text-xl font-bold">Create Thread</div>
+                <IconClose
+                    class="size-8 border rounded bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:cursor-pointer hover:text-gray-200"
+                    @click="isCreatingThread = false"
+                />
+            </div>
             <!-- Helpful Info -->
             <div class="flex flex-col gap-3 text-sm text-left">
-                <span>You can use <code class="text-blue-400">proposal:id</code> as title, and content to pull proposal id, and proposal description. ie. <code class="text-blue-400">proposal:2</code></span>
-                <span>Reminder, everything you post on-chain will be on-chain forever. However, we reserve the right to hide posts.</span>
+                <span
+                    >You can use <code class="text-blue-400">proposal:id</code> as title, and content to pull proposal
+                    id, and proposal description. ie. <code class="text-blue-400">proposal:2</code></span
+                >
+                <span
+                    >Reminder, everything you post on-chain will be on-chain forever. However, we reserve the right to
+                    hide posts.</span
+                >
             </div>
             <!-- Title -->
-            <div class="flex rounded bg-gray-950 relative mb-3 items-center">
-                <div class="flex text-sm bg-gray-800 h-12 items-center justify-center rounded-l w-32 text-center">
-                    Title
-                </div>
+            <div class="flex rounded bg-gray-950 relative items-center">
                 <input
                     class="bg-gray-950 p-3 outline-0 rounded text-white w-full"
-                    placeholder="Title..."
+                    placeholder="Title"
                     type="text"
                     :maxlength="MAX_TITLE_LENGTH"
                     v-model="title"
@@ -59,13 +69,10 @@ async function createThread() {
                 </div>
             </div>
             <!-- Content -->
-            <div class="flex rounded bg-gray-950 relative mb-3">
-                <div class="flex text-sm bg-gray-800 h-12 items-center justify-center rounded-l w-32 text-center">
-                    Content
-                </div>
+            <div class="flex rounded bg-gray-950 relative">
                 <input
                     class="bg-gray-950 p-3 outline-0 rounded text-white w-full"
-                    placeholder="Content..."
+                    placeholder="Content"
                     type="text"
                     :maxlength="MAX_CONTENT_LENGTH"
                     v-model="content"
@@ -75,7 +82,7 @@ async function createThread() {
                 </div>
             </div>
             <!-- Post Thread & Close Buttons -->
-            <div class="flex justify-end gap-2">
+            <div class="flex justify-end gap-2 border-t pt-3 border-gray-700">
                 <button
                     class="text-gray-300 bg-gray-800 hover:text-gray-100 hover:bg-gray-700 rounded px-4 py-2 cursor-pointer border border-gray-700 w-32 text-center"
                     @click="isCreatingThread = false"

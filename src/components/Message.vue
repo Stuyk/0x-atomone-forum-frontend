@@ -6,8 +6,8 @@ import { useWallet } from '../composables/useWallet';
 import { useForum } from '../composables/useForum';
 
 import Avatar from './Avatar.vue';
-import MarkdownWrapper from './MarkdownWrapper.vue';
 import IconHeart from './icons/IconHeart.vue';
+import ProposalWrapper from './ProposalWrapper.vue';
 
 const props = defineProps<{ message: Message; thread: string; isFirstPost: boolean }>();
 const wallet = useWallet();
@@ -54,7 +54,7 @@ function upvoteInvalid() {
         >
             <!-- Top Section -->
             <div class="flex flex-row gap-3 w-full items-center md:justify-start border-b pb-3 mb-3 border-gray-700">
-                <Avatar :hash="props.message.author" :size="32" class="size-14 rounded-md border-2 border-gray-700" />
+                <Avatar :hash="props.message.author" :size="32" class="size-14 rounded border border-gray-700" />
                 <div class="flex flex-col w-full">
                     <span class="text-gray-300 font-bold text-left text-wrap break-all w-full">
                         {{
@@ -72,12 +72,12 @@ function upvoteInvalid() {
                 <div class="flex flex-row h-full text-gray-300" v-if="!isProposal">
                     {{ forum.getMessageContent(props.thread, props.message.hash) }}
                 </div>
-                <MarkdownWrapper v-else :content="forum.getMessageContent(props.thread, props.message.hash, true)" />
+                <ProposalWrapper v-else :msgHash="props.message.hash" :threadHash="props.thread" />
             </div>
             <div class="flex flex-row w-full border-t gap-3 border-gray-700 mt-3 pt-3 items-center text-sm flex-wrap md:flex-nowrap">
                 <div 
-                    class="flex flex-row gap-1 items-center hover:text-gray-200 hover:cursor-pointer"
-                    :class="isUpvoted ? ['text-blue-500'] : []"
+                    class="flex flex-row gap-1 items-center hover:text-amber-400 hover:cursor-pointer"
+                    :class="isUpvoted ? ['text-amber-500'] : []"
                 >   
                     <IconHeart
                         title="Upvote"
