@@ -22,31 +22,25 @@ export interface Message {
 
 export interface Proposal {
     proposal: {
-        proposal_id: string;
-        content: {
-            '@type': string;
-            title: string;
-            description: string;
-            changes: Array<{
-                subspace: string;
-                key: string;
-                value: string;
-            }>;
-        };
-        status: string;
-        final_tally_result: {
-            yes: string;
-            abstain: string;
-            no: string;
-            no_with_veto: string;
-        };
-        submit_time: string;
-        deposit_end_time: string;
-        total_deposit: Array<{
-            denom: string;
-            amount: string;
-        }>;
-        voting_start_time: string;
-        voting_end_time: string;
-    };
-}
+      id: string
+      messages: Array<any>
+      status: string
+      final_tally_result: {
+        yes_count: string
+        abstain_count: string
+        no_count: string
+      }
+      submit_time: string
+      deposit_end_time: string
+      total_deposit: Array<{
+        denom: string
+        amount: string
+      }>
+      voting_start_time: any
+      voting_end_time: any
+      metadata: string
+      title: string
+      summary: string
+      proposer: string
+    }
+  }

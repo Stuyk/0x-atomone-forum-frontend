@@ -3,6 +3,7 @@ import { onMounted, ref, computed, watch } from "vue";
 import markdownit from "markdown-it";
 import MarkdownItMermaid from "@agoose77/markdown-it-mermaid";
 import { alertPlugin } from "markdown-it-github-alert";
+import MarkdownKatex from 'markdown-it-katex';
 import DOMPurify from "dompurify";
 
 const md = markdownit({
@@ -12,7 +13,8 @@ const md = markdownit({
   breaks: true,
 })
   .use(MarkdownItMermaid)
-  .use(alertPlugin);
+  .use(alertPlugin)
+  .use(MarkdownKatex);
 
 const props = defineProps<{ limit?: number, content: string }>();
 const trimmedContent = ref<string>("");

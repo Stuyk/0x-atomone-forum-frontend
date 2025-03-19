@@ -12,7 +12,7 @@ export function useProposals() {
         }
 
         try {
-            const result = await fetch(`${rest}atomone/gov/v1beta1/proposals/${id}`);
+            const result = await fetch(`${rest}atomone/gov/v1/proposals/${id}`);
             if (!result.ok) {
                 console.error(`Failed to fetch proposal ${id}`);
                 return;

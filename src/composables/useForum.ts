@@ -66,7 +66,7 @@ export function useForum() {
                 return `Prop #${id}`;
             }
 
-            return `Prop #${id} - ${proposals.value[id].proposal.content.title}`
+            return `Prop #${id} - ${proposals.value[id].proposal.title}`
         }
 
         return content.value.threads[idx].title;
@@ -96,10 +96,10 @@ export function useForum() {
             }
 
             if (isFull) {
-                return proposals.value[id].proposal.content.description;
+                return proposals.value[id].proposal.summary;
             }
 
-            return proposals.value[id].proposal.content.description.slice(0, forumInfo.maxContentLength) + '...';
+            return proposals.value[id].proposal.summary.slice(0, forumInfo.maxContentLength) + '...';
         }
 
         return msg;

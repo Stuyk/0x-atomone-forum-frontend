@@ -19,6 +19,7 @@
     "dompurify": "^3.2.4",
     "markdown-it": "^14.1.0",
     "markdown-it-github-alert": "^1.0.6",
+    "markdown-it-katex": "^2.0.3",
     "tailwindcss": "^4.0.14",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
