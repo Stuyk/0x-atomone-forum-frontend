@@ -3,7 +3,7 @@ import type { ActionThreadCreate } from '../types/actionQueries';
 import { paramsToObject } from './shared';
 
 export function actionThreadCreate(jsonData: Forum, action: Action) {
-    const query = paramsToObject<ActionThreadCreate>(new URLSearchParams(action.memo))
+    const query = paramsToObject<ActionThreadCreate>(new URLSearchParams(action.memo.replace('0xForum?', '')))
     if (query.a != ACTION_CODES.THREAD_CREATE) {
         console.warn(`Skipped ${action.hash}, action code was not valid.`);
         return;
@@ -31,7 +31,7 @@ export function actionThreadCreate(jsonData: Forum, action: Action) {
         updated: new Date(action.timestamp).toISOString(),
         messages: [
             {
-                author: action.from,
+                author: action.from_address,
                 hash: action.hash,
                 message: query.c,
                 timestamp: new Date(action.timestamp).toISOString(),

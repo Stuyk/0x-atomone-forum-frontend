@@ -3,7 +3,7 @@ import type { ActionAdminRemove } from '../types/actionQueries';
 import { paramsToObject } from './shared';
 
 export function actionAdminRemove(jsonData: Forum, action: Action) {
-    const query = paramsToObject<ActionAdminRemove>(new URLSearchParams(action.memo))
+    const query = paramsToObject<ActionAdminRemove>(new URLSearchParams(action.memo.replace('0xForum?', '')))
     if (query.a != ACTION_CODES.ADMIN_REMOVE) {
         console.warn(`Skipped ${action.hash}, action code was not valid.`);
         return;
@@ -14,7 +14,7 @@ export function actionAdminRemove(jsonData: Forum, action: Action) {
         return;
     }
 
-    if (action.from !== jsonData.owner) {
+    if (action.from_address !== jsonData.owner) {
         console.warn(`Skipped ${action.hash}, not owner of board`);
         return;
     }

@@ -3,7 +3,7 @@ import type { ActionMessageUpvote } from '../types/actionQueries';
 import { paramsToObject } from './shared';
 
 export function actionMessageUpvote(jsonData: Forum, action: Action) {
-    const query = paramsToObject<ActionMessageUpvote>(new URLSearchParams(action.memo))
+    const query = paramsToObject<ActionMessageUpvote>(new URLSearchParams(action.memo.replace('0xForum?', '')))
     if (query.a != ACTION_CODES.MESSAGE_UPVOTE) {
         console.warn(`Skipped ${action.hash}, action code was not valid.`);
         return;
@@ -33,19 +33,19 @@ export function actionMessageUpvote(jsonData: Forum, action: Action) {
 
     // Create upvotes array if it does not already exist.
     if (!jsonData.threads[threadIndex].messages[msgIdx].upvotes) {
-        jsonData.threads[threadIndex].messages[msgIdx].upvotes = [action.from];
+        jsonData.threads[threadIndex].messages[msgIdx].upvotes = [action.from_address];
         jsonData.threads[threadIndex].updated = new Date(action.timestamp).toISOString();
         console.log(`Upvote Message Action Invoked`);
         return
     }
 
-    const upvoteIndex = jsonData.threads[threadIndex].messages[msgIdx].upvotes.findIndex(x => x == action.from);
+    const upvoteIndex = jsonData.threads[threadIndex].messages[msgIdx].upvotes.findIndex(x => x == action.from_address);
     if (upvoteIndex >= 0) {
         console.warn(`Skipped ${action.hash}, upvote already counted.`);
         return;
     }
 
-    jsonData.threads[threadIndex].messages[msgIdx].upvotes.push(action.from);
+    jsonData.threads[threadIndex].messages[msgIdx].upvotes.push(action.from_address);
     jsonData.threads[threadIndex].updated = new Date(action.timestamp).toISOString();
     console.log(`Upvote Message Action Invoked`);
 }

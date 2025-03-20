@@ -3,7 +3,7 @@ import type { ActionMessageRemove } from '../types/actionQueries';
 import { paramsToObject } from './shared';
 
 export function actionMessageRemove(jsonData: Forum, action: Action) {
-    const query = paramsToObject<ActionMessageRemove>(new URLSearchParams(action.memo))
+    const query = paramsToObject<ActionMessageRemove>(new URLSearchParams(action.memo.replace('0xForum?', '')))
     if (query.a != ACTION_CODES.MESSAGE_REMOVE) {
         console.warn(`Skipped ${action.hash}, action code was not valid.`);
         return;
@@ -32,7 +32,7 @@ export function actionMessageRemove(jsonData: Forum, action: Action) {
     }
 
     const msg = jsonData.threads[threadIndex].messages[msgIndex];
-    if (action.from !== msg.author && action.from !== jsonData.owner && !jsonData.admins.includes(action.from)) {
+    if (action.from_address !== msg.author && action.from_address !== jsonData.owner && !jsonData.admins.includes(action.from_address)) {
         console.warn(`Skipped ${action.hash}, not owner of message`);
         return;
     }

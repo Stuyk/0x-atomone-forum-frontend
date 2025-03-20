@@ -25,8 +25,10 @@ export function parseActions(actions: Action[]): Forum {
     const forum: Forum = { admins: [ OWNER ], owner: OWNER, threads: [], lastBlock: '' }
 
     for(let action of actions) {
-        const params = new URLSearchParams(action.memo);
+        const params = new URLSearchParams(action.memo.replace('0xForum?', ''))
+        console.log(params.entries())
         const actionCode = params.get('a');
+        console.log(action);
         if (!actionCode) {
             console.warn(`Skipped Action ${action.hash}, invalid parameters`);
             continue;

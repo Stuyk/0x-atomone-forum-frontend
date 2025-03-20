@@ -59,8 +59,8 @@ export interface Action {
     hash: string;
     height: string;
     timestamp: string;
-    from: string;
-    to: string;
+    from_address: string;
+    to_address: string;
     memo: string;
     amounts: Array<{
         denom: string;

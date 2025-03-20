@@ -2,12 +2,23 @@
 import { computed, onMounted } from 'vue';
 import { useForum } from './composables/useForum';
 import Navbar from './components/Navbar.vue';
+import { parseActions } from './actions/actionParser';
+import type { Action } from './types';
 
 const forum = useForum();
 
 async function update() {
     await forum.update();
     await forum.getAllProposals();
+
+    const response = await fetch(`https://forum.terrible-ape-79.telebit.io/data`);
+    if (!response.ok) {
+        return;
+    }
+
+    const actions = await response.json() as Action[]
+    const forumData = parseActions(actions);
+    console.log(forumData);
 }
 
 const isDoneUpdating = computed(() => {
