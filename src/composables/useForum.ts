@@ -1,45 +1,42 @@
 import { ref } from 'vue';
-import type { Forum } from '../types';
+import type { Action, Forum } from '../types';
 import forumInfo from '../forum-config.json';
 import { useProposals } from './useProposals';
+import { parseActions } from '../actions/actionParser';
 
-const ENDPOINT_URLS = forumInfo.dataApi;
 const { proposals, fetchProposal } = useProposals();
 
-const content = ref<Forum | null>()
+const content = ref<Forum | null>();
 const isUpdating = ref(false);
 
 export function useForum() {
     const update = async () => {
         isUpdating.value = true;
 
-        for(let api of ENDPOINT_URLS) {
-            try {
-                const result = await fetch(api);
-                if (!result.ok) {
-                    console.error(new Error(`Failed to fetch from ${api}`))
-                    continue;
-                }
-    
-                content.value = await result.json();
+        try {
+            const response = await fetch(`https://forum.terrible-ape-79.telebit.io/data`);
+            if (!response.ok) {
                 isUpdating.value = false;
-                break;
-            } catch(err) {
-                console.error(new Error(`Failed to fetch from ${api}`))
-                console.error(err);
+                return;
             }
+
+            const actions = (await response.json()) as Action[];
+            content.value = parseActions(actions);
+        } catch (err) {
+            console.error(new Error(`Failed to fetch data for forum.`));
+            console.error(err);
         }
 
         isUpdating.value = false;
-    }
+    };
 
     const isAdmin = (address: string) => {
         if (!content.value) {
-            console.log('no content?')
+            console.log('no content?');
             return false;
         }
 
-        if (content.value.admins.find(x => x == address)) {
+        if (content.value.admins.find((x) => x == address)) {
             return true;
         }
 
@@ -48,14 +45,14 @@ export function useForum() {
         }
 
         return false;
-    }
+    };
 
     const getThreadTitle = (hash: string) => {
         if (!content.value) {
             return 'No Title Found';
         }
 
-        const idx = content.value.threads.findIndex(x => x.hash === hash);
+        const idx = content.value.threads.findIndex((x) => x.hash === hash);
         if (idx <= -1) {
             return 'Thread Not Found';
         }
@@ -66,23 +63,23 @@ export function useForum() {
                 return `Prop #${id}`;
             }
 
-            return `Prop #${id} - ${proposals.value[id].proposal.title}`
+            return `Prop #${id} - ${proposals.value[id].proposal.title}`;
         }
 
         return content.value.threads[idx].title;
-    }
+    };
 
     const getMessageContent = (threadHash: string, msgHash: string, isFull = false) => {
         if (!content.value) {
             return 'No Content Found';
         }
 
-        const threadIndex = content.value.threads.findIndex(x => x.hash === threadHash);
+        const threadIndex = content.value.threads.findIndex((x) => x.hash === threadHash);
         if (threadIndex <= -1) {
             return 'Thread Not Found';
         }
 
-        const msgIndex = content.value.threads[threadIndex].messages.findIndex(x => x.hash == msgHash);
+        const msgIndex = content.value.threads[threadIndex].messages.findIndex((x) => x.hash == msgHash);
         if (msgIndex <= -1) {
             return 'Message Not Found';
         }
@@ -103,19 +100,19 @@ export function useForum() {
         }
 
         return msg;
-    }
+    };
 
     const getMessageUpvotes = (threadHash: string, msgHash: string) => {
         if (!content.value) {
-            return 0
+            return 0;
         }
 
-        const threadIndex = content.value.threads.findIndex(x => x.hash === threadHash);
+        const threadIndex = content.value.threads.findIndex((x) => x.hash === threadHash);
         if (threadIndex <= -1) {
-            return 0
+            return 0;
         }
 
-        const msgIndex = content.value.threads[threadIndex].messages.findIndex(x => x.hash == msgHash);
+        const msgIndex = content.value.threads[threadIndex].messages.findIndex((x) => x.hash == msgHash);
         if (msgIndex <= -1) {
             return 'Message Not Found';
         }
@@ -136,7 +133,7 @@ export function useForum() {
 
         const promises: Promise<any>[] = [];
 
-        for(let thread of content.value.threads.filter(x => x.title.includes('proposal:'))) {
+        for (let thread of content.value.threads.filter((x) => x.title.includes('proposal:'))) {
             const [_, id] = thread.title.split(':');
             promises.push(fetchProposal(id));
         }
@@ -150,31 +147,34 @@ export function useForum() {
             return false;
         }
 
-        const threadIndex = content.value.threads.findIndex(x => x.hash === forumHash);
+        const threadIndex = content.value.threads.findIndex((x) => x.hash === forumHash);
         if (threadIndex <= -1) {
             return false;
         }
 
-        const msgIndex = content.value.threads[threadIndex].messages.findIndex(x => x.hash == msgHash);
+        const msgIndex = content.value.threads[threadIndex].messages.findIndex((x) => x.hash == msgHash);
         if (msgIndex <= -1) {
             return false;
         }
 
-        return content.value.threads[threadIndex].title.includes('proposal:') && content.value.threads[threadIndex].messages[msgIndex].message.includes('proposal:')
-    }
+        return (
+            content.value.threads[threadIndex].title.includes('proposal:') &&
+            content.value.threads[threadIndex].messages[msgIndex].message.includes('proposal:')
+        );
+    };
 
     const isProposalThread = (threadHash: string) => {
         if (!content.value) {
             return false;
         }
 
-        const threadIndex = content.value.threads.findIndex(x => x.hash === threadHash);
+        const threadIndex = content.value.threads.findIndex((x) => x.hash === threadHash);
         if (threadIndex <= -1) {
             return false;
         }
 
-        return content.value.threads[threadIndex].title.includes('proposal:')
-    }
+        return content.value.threads[threadIndex].title.includes('proposal:');
+    };
 
     return {
         content,
@@ -186,6 +186,6 @@ export function useForum() {
         isProposalThread,
         isProposalMessage,
         isAdmin,
-        update
-    }
+        update,
+    };
 }
