@@ -122,9 +122,11 @@ export function useWallet() {
             throw new Error('No Signer Available');
         }
 
-        // Reply Action
-        const formattedMemo = `0xForum,0,${title},${content}`;
-        return await invokeAction(formattedMemo);
+        const params = new URLSearchParams();
+        params.append('a', '0');
+        params.append('t', title);
+        params.append('c', content);
+        return await invokeAction(`0xForum?${params.toString()}`);
     };
 
     // Action 1
@@ -146,8 +148,11 @@ export function useWallet() {
         }
 
         // Reply Action
-        const formattedMemo = `0xForum,1,${threadHash},${content}`;
-        return await invokeAction(formattedMemo);
+        const params = new URLSearchParams();
+        params.append('a', '1');
+        params.append('th', threadHash);
+        params.append('c', content);
+        return await invokeAction(`0xForum?${params.toString()}`);
     };
 
     // Action 2
@@ -169,8 +174,11 @@ export function useWallet() {
         }
 
         // Reply Action
-        const formattedMemo = `0xForum,2,${threadHash},${msgHash}`;
-        return await invokeAction(formattedMemo);
+        const params = new URLSearchParams();
+        params.append('a', '2');
+        params.append('th', threadHash);
+        params.append('mh', msgHash);
+        return await invokeAction(`0xForum?${params.toString()}`);
     };
 
     // Action 3
@@ -188,8 +196,10 @@ export function useWallet() {
         }
 
         // Reply Action
-        const formattedMemo = `0xForum,3,${threadHash}`;
-        return await invokeAction(formattedMemo);
+        const params = new URLSearchParams();
+        params.append('a', '3');
+        params.append('th', threadHash);
+        return await invokeAction(`0xForum?${params.toString()}`);
     };
 
     // Action 6
@@ -211,8 +221,11 @@ export function useWallet() {
         }
 
         // Reply Action
-        const formattedMemo = `0xForum,6,${threadHash},${messageHash}`;
-        return await invokeAction(formattedMemo);
+        const params = new URLSearchParams();
+        params.append('a', '6');
+        params.append('th', threadHash);
+        params.append('mh', messageHash);
+        return await invokeAction(`0xForum?${params.toString()}`);
     };
 
     window.addEventListener('keplr_keystorechange', refreshAddress);
