@@ -18,7 +18,7 @@ watch(
 </script>
 
 <template>
-    <div class="flex flex-col gap-3 bg-gray-900 p-3 rounded border border-gray-700 w-full h-fit max-w-[640px]">
+    <div class="flex flex-col gap-3 bg-gray-900 p-3 rounded border border-gray-700 w-full h-fit max-w-[640px] z-50">
         <div class="flex flex-row justify-between border-b items-center pb-3 mb-1 border-gray-700">
             <div class="text-xl font-bold">Select Wallet</div>
             <IconClose

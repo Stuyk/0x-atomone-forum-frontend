@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import { type Action, ACTION_CODES, type Forum } from "../types";
 import { actionAdminAdd } from "./actionAdminAdd";
 import { actionAdminRemove } from "./actionAdminRemove";
@@ -9,7 +10,6 @@ import { actionThreadRemove } from "./actionThreadRemove";
 
 const OWNER = 'atone1uq6zjslvsa29cy6uu75y8txnl52mw06j6fzlep'
 
-
 const ActionMapping = {
     [ACTION_CODES.THREAD_CREATE]: actionThreadCreate,
     [ACTION_CODES.MESSAGE_ADD]: actionMessageAdd,
@@ -20,15 +20,29 @@ const ActionMapping = {
     [ACTION_CODES.MESSAGE_UPVOTE]: actionMessageUpvote
 };
 
+const lastBlock = ref<string>('');
 
-export function parseActions(actions: Action[]): Forum {
-    const forum: Forum = { admins: [ OWNER ], owner: OWNER, threads: [], lastBlock: '' }
+export function parseActions(actions: Action[], existingData: Forum | null = null): Forum {
+    let forum: Forum = { admins: [ OWNER ], owner: OWNER, threads: [], lastBlock: '' }
+    let skipToLastBlock = false;
+
+    if (existingData) {
+        forum = existingData;
+        skipToLastBlock = true;
+    }
 
     for(let action of actions) {
+        if (skipToLastBlock && action.height != lastBlock.value) {
+            continue;
+        }
+
+        skipToLastBlock = false;
+        if (action.height == lastBlock.value) {
+            continue;
+        }
+        
         const params = new URLSearchParams(action.memo.replace('0xForum?', ''))
-        console.log(params.entries())
         const actionCode = params.get('a');
-        console.log(action);
         if (!actionCode) {
             console.warn(`Skipped Action ${action.hash}, invalid parameters`);
             continue;
@@ -42,5 +56,6 @@ export function parseActions(actions: Action[]): Forum {
         ActionMapping[actionCode](forum, action);
     }
 
+    lastBlock.value = actions[actions.length - 1].height;
     return forum;
 }

@@ -10,10 +10,6 @@ async function update() {
     await forum.getAllProposals();
 }
 
-const isDoneUpdating = computed(() => {
-    return forum.isUpdating.value == false;
-});
-
 onMounted(update);
 </script>
 
@@ -22,8 +18,7 @@ onMounted(update);
         <main class="main"></main>
         <Navbar class="z-10" />
         <div
-            class="flex flex-col w-full box-border overflow-y-auto h-[100vh - 75px] items-center z-10"
-            v-if="isDoneUpdating"
+            class="flex flex-col w-full box-border overflow-y-auto h-[100vh - 75px] items-center"
         >
             <div class="flex flex-col w-full max-w-[1280px] box-border">
                 <RouterView />

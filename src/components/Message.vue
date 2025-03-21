@@ -21,10 +21,6 @@ const isOwner = computed(() => {
     return props.message.author === wallet.state.address;
 });
 
-const isReady = computed(() => {
-    return forum.isUpdating.value == false;
-});
-
 const isProposal = computed(() => {
     return forum.isProposalMessage(props.thread, props.message.hash);
 });
@@ -47,7 +43,7 @@ function upvoteInvalid() {
 </script>
 
 <template>
-    <div class="flex flex-row gap-3 box-border flex-wrap" :id="props.message.hash" v-if="isReady">
+    <div class="flex flex-row gap-3 box-border flex-wrap" :id="props.message.hash">
         <!-- Message Content -->
         <div
             class="flex flex-col w-full bg-gray-900 p-3 rounded border border-gray-700 items-center justify-center text-gray-500"
