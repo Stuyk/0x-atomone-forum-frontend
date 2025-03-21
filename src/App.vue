@@ -15,12 +15,12 @@ onMounted(update);
 
 <template>
     <div class="bg-gray-950 h-screen w-screen overflow-hidden text-gray-200 flex flex-col items-center">
-        <main class="main"></main>
-        <Navbar class="z-10" />
+        <main class="main -z-10"></main>
+        <Navbar class="z-0" />
         <div
             class="flex flex-col w-full box-border overflow-y-auto h-[100vh - 75px] items-center"
         >
-            <div class="flex flex-col w-full max-w-[1280px] box-border z-5">
+            <div class="flex flex-col w-full max-w-[1280px] box-border">
                 <RouterView />
             </div>
         </div>

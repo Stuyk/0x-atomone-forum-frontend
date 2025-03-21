@@ -21,7 +21,7 @@ const isUpdating = computed(() => {
     <div class="flex w-full">
         <div
             v-if="isSelectingWallet"
-            class="fixed inset-0 flex justify-center bg-[#000000aa] backdrop-blur-xs px-6 py-6 z-50"
+            class="fixed inset-0 flex justify-center bg-[#000000aa] backdrop-blur-xs px-6 py-6"
         >
             <WalletSelect @onSelect="isSelectingWallet = false" @onCancel="isSelectingWallet = false" />
         </div>
