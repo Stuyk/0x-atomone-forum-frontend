@@ -21,14 +21,11 @@ const threadsByDate = computed(() => {
     return forum.content.value.threads.sort((a, b) => {
         return new Date(b.updated).getTime() - new Date(a.updated).getTime();
     });
-});
+}); 
 </script>
 
 <template>
-    <div class="flex flex-col pt-3 px-3 gap-3 box-border" v-if="content">
-        <div class="text-center text-gray-100 bg-red-900 border border-red-500 rounded p-3">
-            Keep in mind that replies, and threads that are created may take some time to populate. Server infrastructure will improve at a later date.
-        </div>
+    <div class="flex flex-col p-6 gap-6 box-border" v-if="content">
         <div class="text-center text-gray-100 bg-gray-600 border border-gray-500 rounded p-3">
             Never input your private keys anywhere on this website. We will never ask for your keys.
         </div>

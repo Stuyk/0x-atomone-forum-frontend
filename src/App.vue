@@ -20,7 +20,7 @@ onMounted(update);
         <div
             class="flex flex-col w-full box-border overflow-y-auto h-[100vh - 75px] items-center"
         >
-            <div class="flex flex-col w-full max-w-[1280px] box-border">
+            <div class="flex flex-col w-full max-w-[1280px] box-border z-5">
                 <RouterView />
             </div>
         </div>

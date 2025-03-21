@@ -20,9 +20,9 @@ const thread = computed(() => {
 </script>
 
 <template>
-    <div class="flex flex-col px-3 gap-3" v-if="thread">
-        <div class="flex flex-row justify-between items-end">
-            <div class="text-2xl font-bold rounded-md pt-3 select-none">
+    <div class="flex flex-col px-6 py-6 gap-3 overflow-hidden" v-if="thread">
+        <div class="flex flex-row justify-between items-end pb-3">
+            <div class="text-2xl font-bold rounded-md select-none">
                 {{ forum.getThreadTitle(thread.hash) }}
             </div>
             <a
