@@ -56,6 +56,9 @@ export function parseActions(actions: Action[], existingData: Forum | null = nul
         ActionMapping[actionCode](forum, action);
     }
 
-    lastBlock.value = actions[actions.length - 1].height;
+    if (actions.length >= 1) {
+        lastBlock.value = actions[actions.length - 1].height;
+    }
+
     return forum;
 }
