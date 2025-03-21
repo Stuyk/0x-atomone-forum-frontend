@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useWallet } from '../composables/useWallet';
 import IconClose from './icons/IconClose.vue';
+import { useForum } from '../composables/useForum';
 
 const MAX_TITLE_LENGTH = 24;
 const MAX_CONTENT_LENGTH = 180 - MAX_TITLE_LENGTH;
@@ -11,6 +12,7 @@ const content = ref<string>('');
 const isCreatingThread = ref(false);
 
 const wallet = useWallet();
+const forum = useForum();
 
 async function createThread() {
     if (title.value.length <= 0 || content.value.length <= 0) {
@@ -21,6 +23,10 @@ async function createThread() {
     if (!result) {
         alert('Failed to create Thread');
         return;
+    }
+
+    if (!forum.isLiveUpdating.value) {
+        forum.toggleLiveMode();
     }
 
     content.value = '';

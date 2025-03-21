@@ -3,11 +3,18 @@ import type { Action, Forum } from '../types';
 import forumInfo from '../forum-config.json';
 import { useProposals } from './useProposals';
 import { parseActions } from '../actions/actionParser';
+import { createHash } from 'crypto';
 
 const { proposals, fetchProposal } = useProposals();
 
 const content = ref<Forum | null>();
+const contentHash = ref<string>('');
+
 const isUpdating = ref(false);
+const isLiveUpdating = ref(false);
+const liveInterval = ref<NodeJS.Timeout | undefined>(undefined);
+
+
 
 export function useForum() {
     const update = async () => {
@@ -21,7 +28,15 @@ export function useForum() {
             }
 
             const actions = (await response.json()) as Action[];
-            content.value = parseActions(actions);
+            const newContent = parseActions(actions, content.value);
+            const newContentHash = createHash('sha256').update(JSON.stringify(newContent)).digest('hex');
+            if (contentHash.value === newContentHash) {
+                isUpdating.value = false;
+                return;
+            }
+
+            contentHash.value = newContentHash;
+            content.value = newContent;
         } catch (err) {
             console.error(new Error(`Failed to fetch data for forum.`));
             console.error(err);
@@ -134,7 +149,7 @@ export function useForum() {
         const promises: Promise<any>[] = [];
 
         for (let thread of content.value.threads.filter((x) => x.title.includes('proposal:'))) {
-            const [_, id] = thread.title.split(':');
+            const [_, id] = thread.title.split(thread.title.includes(':') ? ':' : '%3A');
             promises.push(fetchProposal(id));
         }
 
@@ -176,6 +191,16 @@ export function useForum() {
         return content.value.threads[threadIndex].title.includes('proposal:');
     };
 
+    const toggleLiveMode = () => {
+        isLiveUpdating.value = !isLiveUpdating.value;
+
+        if (isLiveUpdating.value) {
+            liveInterval.value = setInterval(update, 5000);
+        } else {
+            clearInterval(liveInterval.value);
+        }
+    }
+
     return {
         content,
         getAllProposals,
@@ -183,9 +208,11 @@ export function useForum() {
         getMessageContent,
         getMessageUpvotes,
         isUpdating,
+        isLiveUpdating,
         isProposalThread,
         isProposalMessage,
         isAdmin,
+        toggleLiveMode,
         update,
     };
 }
