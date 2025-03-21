@@ -27,8 +27,8 @@ export function useForum() {
                 return;
             }
 
-            const actions = (await response.json()) as Action[];
-            const newContent = parseActions(actions, content.value);
+            const actions = (await response.json()) as { data: Action[], total: number, limit: number, offset: number };
+            const newContent = parseActions(actions.data, content.value);
             const newContentHash = createHash('sha256').update(JSON.stringify(newContent)).digest('hex');
             if (contentHash.value === newContentHash) {
                 isUpdating.value = false;
