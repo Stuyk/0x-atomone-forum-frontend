@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useForum } from './composables/useForum';
 import Navbar from './components/Navbar.vue';
 
